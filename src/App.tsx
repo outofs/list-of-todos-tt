@@ -1,50 +1,54 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { ModalForm } from './components/ModalForm';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { ModalForm } from "./components/ModalForm";
 
-import { useAppDispatch, useAppSelector } from './app/hooks';
-import { actions as modalActions } from './features/modal';
-import { actions as filterActions } from './features/filter';
-import { TodoList } from './components/TodoList';
-import { Button, Dropdown } from 'react-bootstrap';
-import { Status } from './types/Status';
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { actions as modalActions } from "./features/modal";
+
+import { TodoList } from "./components/TodoList";
+import { Button } from "react-bootstrap";
+import { Filter } from "./components/Filter";
+
 
 function App() {
   const modalIsOpen = useAppSelector(state => state.modal);
-  const status = useAppSelector(state => state.filter);
+  const todos = useAppSelector(state => state.todos);
+
   const dispatch = useAppDispatch();
 
   const openModalHandler = () => {
     dispatch(modalActions.openModal());
   };
 
-  const setSatusHandler = (statusValue: Status) => {
-    dispatch(filterActions.setStatus(statusValue));
-  }
+
 
   return (
     <div className="App">
-      <h1>Todo list</h1>
-      <Button onClick={openModalHandler}>Add new Todo</Button>
-      {modalIsOpen && <ModalForm />}
-      <TodoList />
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          {status}
-        </Dropdown.Toggle>
+      <div className="container py-5 h-100">
+        <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="col col-lg-9 col-xl-7">
+            <div className="card rounded-3">
+              <div className="card-body p-4">
+                <div className="d-flex justify-content-between mb-5">
+                  <h1>Todo list</h1>
+                  <Button onClick={openModalHandler}>Add new Todo</Button>
+                </div>
 
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={() => setSatusHandler('all')}>
-            All
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => setSatusHandler('completed')}>
-            Completed
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => setSatusHandler('active')}>
-            Active
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+                {
+                  todos.length === 0 ? (
+                    <p>There is no todos for you</p>
+                  ) : (
+                    <>
+                      <Filter />
+                      <TodoList />
+                    </>
+                  )
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {modalIsOpen && <ModalForm />}
     </div>
   );
 }

@@ -1,17 +1,17 @@
 type OpenModal = {
-  type: 'modal/OPEN';
+  type: "modal/OPEN";
 };
 
 type CloseModal = {
-  type: 'modal/CLOSE';
+  type: "modal/CLOSE";
 };
 
 const openModal = (): OpenModal => ({
-  type: 'modal/OPEN',
+  type: "modal/OPEN",
 });
 
 const closeModal = (): CloseModal => ({
-  type: 'modal/CLOSE',
+  type: "modal/CLOSE",
 });
 
 export const actions = { openModal, closeModal };
@@ -25,15 +25,15 @@ const modalReducer = (
   action: Action
 ): boolean => {
   switch (action.type) {
-    case 'modal/OPEN':
+    case "modal/OPEN":
       return true;
 
-    case 'modal/CLOSE':
+    case "modal/CLOSE":
       return false;
 
     default:
       return modalIsOpen;
-  }
+  };
 };
 
 export default modalReducer;

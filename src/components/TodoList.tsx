@@ -1,9 +1,9 @@
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup } from "react-bootstrap";
 
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { TodoItem } from './TodoItem';
-import { useMemo } from 'react';
-import { prepareTodos } from '../utils/prepareTodos';
+import { useAppSelector } from "../app/hooks";
+import { TodoItem } from "./TodoItem";
+import { useMemo } from "react";
+import { prepareTodos } from "../utils/prepareTodos";
 
 export const TodoList = () => {
   const todos = useAppSelector(state => state.todos);
@@ -13,7 +13,7 @@ export const TodoList = () => {
   );
 
   return (
-    <ListGroup as="ul" className=''>
+    <ListGroup as="ul">
       {
         preparedTodos.map(todo => (
           <ListGroup.Item

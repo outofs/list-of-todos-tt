@@ -1,21 +1,21 @@
-import { Todo } from '../types/Todo';
+import { Todo } from "../types/Todo";
 
 type SelectCurrentTodo = {
-  type: 'currentTodo/SELECT';
+  type: "currentTodo/SELECT";
   payload: Todo;
 };
 
 type UnselectCurrentTodo = {
-  type: 'currentTodo/UNSELECT';
+  type: "currentTodo/UNSELECT";
 };
 
 const selectCurrentTodo = (todo: Todo): SelectCurrentTodo => ({
-  type: 'currentTodo/SELECT',
+  type: "currentTodo/SELECT",
   payload: todo,
 });
 
 const unselectCurrentTodo = (): UnselectCurrentTodo => ({
-  type: 'currentTodo/UNSELECT',
+  type: "currentTodo/UNSELECT",
 });
 
 export const actions = { selectCurrentTodo, unselectCurrentTodo };
@@ -29,10 +29,10 @@ const currentTodoReducer = (
   action: Action
 ):Todo | null => {
   switch (action.type) {
-    case 'currentTodo/SELECT':
+    case "currentTodo/SELECT":
       return action.payload;
 
-    case 'currentTodo/UNSELECT':
+    case "currentTodo/UNSELECT":
       return null;
 
     default:

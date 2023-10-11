@@ -1,18 +1,18 @@
-import { Status } from '../types/Status';
-import { Todo } from '../types/Todo';
+import { Status } from "../types/Status";
+import { Todo } from "../types/Todo";
 
 export const prepareTodos = (todos: Todo[],  status : Status) => {
 
-  if (status !== 'all') {
+  if (status !== "all") {
     return todos.filter(todo => {
       switch (status) {
-        case 'active':
+        case "active":
           return !todo.completed;
-        case 'completed':
+        case "completed":
           return todo.completed;
         default:
           return todo;
-      }
+      };
     });
   }
 

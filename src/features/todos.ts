@@ -1,56 +1,56 @@
-import { Todo } from '../types/Todo';
+import { Todo } from "../types/Todo";
 
 type CreateTodo = {
-  type: 'todo/CREATE';
+  type: "todo/CREATE";
+  payload: Todo;
+};
+
+type UpdateTodo = {
+  type: "todo/UPDATE";
   payload: Todo;
 };
 
 type DeleteTodo = {
-  type: 'todo/DELETE';
+  type: "todo/DELETE";
   payload: String;
 };
 
 const createTodo = (todo: Todo): CreateTodo => ({
-  type: 'todo/CREATE',
+  type: "todo/CREATE",
   payload: todo,
 });
 
+const updateTodo = (updatedTodo: Todo): UpdateTodo => ({
+  type: "todo/UPDATE",
+  payload: updatedTodo,
+});
+
 const deleteTodo = (id: String): DeleteTodo => ({
-  type: 'todo/DELETE',
+  type: "todo/DELETE",
   payload: id,
 });
 
-export const actions = { createTodo, deleteTodo };
+export const actions = { createTodo, updateTodo, deleteTodo };
 
-type Action = CreateTodo | DeleteTodo;
+type Action = CreateTodo | UpdateTodo | DeleteTodo;
 
-const initialState: Todo[] = [
-  {
-    id: "sasasaas",
-    completed: false,
-    title: "Todo1",
-    description: "Todo 1 description, Todo 1 description, Todo 1 description",
-  },
-  {
-    id: "dadawdad",
-    completed: true,
-    title: "Todo2",
-    description: "Todo 2 description, Todo 2 description, Todo 2 description",
-  },
-  {
-    id: "dawdawddf",
-    completed: true,
-    title: "Todo3",
-    description: "Todo 3 description, Todo 3 description, Todo 3 description",
-  }
-];
+const initialState: Todo[] = [];
 
 const todosReducer = (todos: Todo[] = initialState, action: Action): Todo[] => {
   switch (action.type) {
-    case 'todo/CREATE':
+    case "todo/CREATE":
       return [...todos, action.payload];
 
-    case 'todo/DELETE':
+    case "todo/UPDATE":
+      return todos.map(todo => {
+        if (todo.id === action.payload.id) {
+          return action.payload;
+        }
+
+        return todo;
+      });
+
+    case "todo/DELETE":
       return todos.filter(todo => todo.id !== action.payload);
 
     default:
